@@ -3,6 +3,7 @@ package com.example.crudjdbc.service;
 import com.example.crudjdbc.exception.RecursoNaoEncontradoException;
 import com.example.crudjdbc.model.Categoria;
 import com.example.crudjdbc.model.Produto;
+import com.example.crudjdbc.model.ProdutoRequest;
 import com.example.crudjdbc.repository.CategoriaRepository;
 import com.example.crudjdbc.repository.ProdutoRepository;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
@@ -19,8 +20,18 @@ public class ProdutoService {
         this.categoriaRepository = categoriaRepository;
     }
 
-    public Produto criar(Produto produto) {
-        validarCategoria(produto.categoriaId());
+    public Produto criar(ProdutoRequest produtoRequest) {
+        var categoriaRef = toCategoriaReference(produtoRequest.categoriaId());
+        validarCategoria(categoriaRef);
+
+        Produto produto = new Produto(
+                null,
+                produtoRequest.nome(),
+                produtoRequest.preco(),
+                produtoRequest.descricao(),
+                categoriaRef
+        );
+
         return produtoRepository.save(produto);
     }
 
@@ -33,23 +44,31 @@ public class ProdutoService {
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Produto não encontrado com id " + id));
     }
 
-    public Produto atualizar(Long id, Produto produtoAtualizado) {
+    public Produto atualizar(Long id, ProdutoRequest produtoRequest) {
         buscarPorId(id);
-        validarCategoria(produtoAtualizado.categoriaId());
+
+        var categoriaRef = toCategoriaReference(produtoRequest.categoriaId());
+        validarCategoria(categoriaRef);
 
         Produto produto = new Produto(
                 id,
-                produtoAtualizado.nome(),
-                produtoAtualizado.preco(),
-                produtoAtualizado.descricao(),
-                produtoAtualizado.categoriaId()
+                produtoRequest.nome(),
+                produtoRequest.preco(),
+                produtoRequest.descricao(),
+                categoriaRef
         );
+
         return produtoRepository.save(produto);
     }
 
     public void deletar(Long id) {
         buscarPorId(id);
         produtoRepository.deleteById(id);
+    }
+
+
+    private AggregateReference<Categoria, Long> toCategoriaReference(Long categoriaId) {
+        return categoriaId == null ? null : AggregateReference.to(categoriaId);
     }
 
     private void validarCategoria(AggregateReference<Categoria, Long> categoriaRef) {

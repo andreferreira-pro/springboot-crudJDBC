@@ -1,6 +1,7 @@
 package com.example.crudjdbc.controller;
 
 import com.example.crudjdbc.model.Produto;
+import com.example.crudjdbc.model.ProdutoRequest;
 import com.example.crudjdbc.service.ProdutoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +18,8 @@ public class ProdutoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Produto criar(@RequestBody Produto produto) {
-        return produtoService.criar(produto);
+    public Produto criar(@RequestBody ProdutoRequest produtoRequest) {
+        return produtoService.criar(produtoRequest);
     }
 
     @GetMapping
@@ -32,8 +33,8 @@ public class ProdutoController {
     }
 
     @PutMapping("/{id}")
-    public Produto atualizar(@PathVariable Long id, @RequestBody Produto produto) {
-        return produtoService.atualizar(id, produto);
+    public Produto atualizar(@PathVariable Long id, @RequestBody ProdutoRequest produtoRequest) {
+        return produtoService.atualizar(id, produtoRequest);
     }
 
     @DeleteMapping("/{id}")
