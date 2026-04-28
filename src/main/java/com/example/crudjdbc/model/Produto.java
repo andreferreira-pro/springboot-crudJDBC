@@ -4,7 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table("produtos")
+@Table("PRODUTOS")
 public record Produto(
         @Id Long id,
         String nome,

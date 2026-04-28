@@ -1,7 +1,7 @@
 package com.example.crudjdbc.controller;
 
 import com.example.crudjdbc.model.Produto;
-import com.example.crudjdbc.model.ProdutoRequest;
+import com.example.crudjdbc.controller.dto.ProdutoRequest;
 import com.example.crudjdbc.service.ProdutoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

@@ -3,7 +3,7 @@ package com.example.crudjdbc.service;
 import com.example.crudjdbc.exception.RecursoNaoEncontradoException;
 import com.example.crudjdbc.model.Categoria;
 import com.example.crudjdbc.model.Produto;
-import com.example.crudjdbc.model.ProdutoRequest;
+import com.example.crudjdbc.controller.dto.ProdutoRequest;
 import com.example.crudjdbc.repository.CategoriaRepository;
 import com.example.crudjdbc.repository.ProdutoRepository;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;

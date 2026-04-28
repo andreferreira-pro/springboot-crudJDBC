@@ -3,7 +3,7 @@ package com.example.crudjdbc.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table("categorias")
+@Table("CATEGORIAS")
 public record Categoria(
         @Id Long id,
         String nome,
