@@ -1,11 +1,11 @@
 package com.example.crudjdbc.controller.dto;
 
 public record ProdutoCategoriaResponse(
-        Long produtoId,
+        Integer produtoId,
         String produtoNome,
         Double preco,
         String produtoDescricao,
-        Long categoriaId,
+        Integer categoriaId,
         String categoriaNome,
         String categoriaDescricao) {
 }

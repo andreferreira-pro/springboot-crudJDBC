@@ -8,16 +8,16 @@ import org.springframework.data.relational.core.mapping.Table;
 public class Produto {
 
     @Id
-    private Long id;
+    private Integer id;
     private String nome;
     private Double preco;
     private String descricao;
-    private AggregateReference<Categoria, Long> categoriaId;
+    private AggregateReference<Categoria, Integer> categoriaId;
 
     public Produto() {
     }
 
-    public Produto(Long id, String nome, Double preco, String descricao, AggregateReference<Categoria, Long> categoriaId) {
+    public Produto(Integer id, String nome, Double preco, String descricao, AggregateReference<Categoria, Integer> categoriaId) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
@@ -25,11 +25,11 @@ public class Produto {
         this.categoriaId = categoriaId;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -57,11 +57,11 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public AggregateReference<Categoria, Long> getCategoriaId() {
+    public AggregateReference<Categoria, Integer> getCategoriaId() {
         return categoriaId;
     }
 
-    public void setCategoriaId(AggregateReference<Categoria, Long> categoriaId) {
+    public void setCategoriaId(AggregateReference<Categoria, Integer> categoriaId) {
         this.categoriaId = categoriaId;
     }
 

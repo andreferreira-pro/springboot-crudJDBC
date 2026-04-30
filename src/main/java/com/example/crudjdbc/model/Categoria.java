@@ -7,24 +7,24 @@ import org.springframework.data.relational.core.mapping.Table;
 public class Categoria {
 
     @Id
-    private Long id;
+    private Integer id;
     private String nome;
     private String descricao;
 
     public Categoria() {
     }
 
-    public Categoria(Long id, String nome, String descricao) {
+    public Categoria(Integer id, String nome, String descricao) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

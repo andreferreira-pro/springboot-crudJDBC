@@ -22,18 +22,18 @@ public class CategoriaService {
         return categoriaRepository.findAll();
     }
 
-    public Categoria buscarPorId(Long id) {
+    public Categoria buscarPorId(Integer id) {
         return categoriaRepository.findById(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Categoria não encontrada com id " + id));
     }
 
-    public Categoria atualizar(Long id, Categoria categoriaAtualizada) {
+    public Categoria atualizar(Integer id, Categoria categoriaAtualizada) {
         buscarPorId(id);
         Categoria categoria = new Categoria(id, categoriaAtualizada.getNome(), categoriaAtualizada.getDescricao());
         return categoriaRepository.save(categoria);
     }
 
-    public void deletar(Long id) {
+    public void deletar(Integer id) {
         buscarPorId(id);
         categoriaRepository.deleteById(id);
     }
