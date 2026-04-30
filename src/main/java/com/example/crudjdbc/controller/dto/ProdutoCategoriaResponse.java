@@ -7,6 +7,5 @@ public record ProdutoCategoriaResponse(
         String produtoDescricao,
         Long categoriaId,
         String categoriaNome,
-        String categoriaDescricao
-) {
+        String categoriaDescricao) {
 }

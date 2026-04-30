@@ -7,11 +7,13 @@ public record ProdutoResponse(
         String nome,
         Double preco,
         String descricao,
-        Long categoriaId
-) {
+        Long categoriaId)
+{
 
     public static ProdutoResponse fromEntity(Produto produto) {
+
         Long categoria = produto.getCategoriaId() == null ? null : produto.getCategoriaId().getId();
+
         return new ProdutoResponse(
                 produto.getId(),
                 produto.getNome(),
