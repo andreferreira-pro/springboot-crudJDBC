@@ -6,6 +6,7 @@ import com.example.crudjdbc.controller.dto.ProdutoRequest;
 import com.example.crudjdbc.controller.dto.ProdutoResponse;
 import com.example.crudjdbc.service.ProdutoService;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,35 +20,34 @@ public class ProdutoController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Produto criar(@RequestBody ProdutoRequest produtoRequest) {
-        return produtoService.criar(produtoRequest);
+    public ResponseEntity<Produto> criar(@RequestBody ProdutoRequest produtoRequest) {
+        Produto produtoCriado = produtoService.criar(produtoRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(produtoCriado);
     }
 
     @GetMapping
-    public Iterable<ProdutoResponse> listarTodos() {
-        return produtoService.listarTodos();
+    public ResponseEntity<Iterable<ProdutoResponse>> listarTodos() {
+        return ResponseEntity.ok(produtoService.listarTodos());
     }
 
-
     @GetMapping("/detalhado")
-    public Iterable<ProdutoCategoriaResponse> listarProdutosComCategoria() {
-        return produtoService.listarProdutosComCategoria();
+    public ResponseEntity<Iterable<ProdutoCategoriaResponse>> listarProdutosComCategoria() {
+        return ResponseEntity.ok(produtoService.listarProdutosComCategoria());
     }
 
     @GetMapping("/{id}")
-    public Produto buscarPorId(@PathVariable Long id) {
-        return produtoService.buscarPorId(id);
+    public ResponseEntity<Produto> buscarPorId(@PathVariable Integer id) {
+        return ResponseEntity.ok(produtoService.buscarPorId(id));
     }
 
     @PutMapping("/{id}")
-    public Produto atualizar(@PathVariable Long id, @RequestBody ProdutoRequest produtoRequest) {
-        return produtoService.atualizar(id, produtoRequest);
+    public ResponseEntity<Produto> atualizar(@PathVariable Integer id, @RequestBody ProdutoRequest produtoRequest) {
+        return ResponseEntity.ok(produtoService.atualizar(id, produtoRequest));
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletar(@PathVariable Long id) {
+    public ResponseEntity<Void> deletar(@PathVariable Integer id) {
         produtoService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }

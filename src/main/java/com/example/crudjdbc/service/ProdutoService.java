@@ -11,8 +11,6 @@ import com.example.crudjdbc.repository.ProdutoRepository;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.StreamSupport;
-
 @Service
 public class ProdutoService {
 
@@ -40,22 +38,19 @@ public class ProdutoService {
     }
 
     public Iterable<ProdutoResponse> listarTodos() {
-        return StreamSupport.stream(produtoRepository.findAll().spliterator(), false)
-                .map(ProdutoResponse::fromEntity)
-                .toList();
+        return produtoRepository.listarTodosComCategoria();
     }
-
 
     public Iterable<ProdutoCategoriaResponse> listarProdutosComCategoria() {
         return produtoRepository.listarProdutosComCategoria();
     }
 
-    public Produto buscarPorId(Long id) {
+    public Produto buscarPorId(Integer id) {
         return produtoRepository.findById(id)
                 .orElseThrow(() -> new RecursoNaoEncontradoException("Produto não encontrado com id " + id));
     }
 
-    public Produto atualizar(Long id, ProdutoRequest produtoRequest) {
+    public Produto atualizar(Integer id, ProdutoRequest produtoRequest) {
         buscarPorId(id);
 
         var categoriaRef = toCategoriaReference(produtoRequest.categoriaId());
@@ -72,17 +67,16 @@ public class ProdutoService {
         return produtoRepository.save(produto);
     }
 
-    public void deletar(Long id) {
+    public void deletar(Integer id) {
         buscarPorId(id);
         produtoRepository.deleteById(id);
     }
 
-
-    private AggregateReference<Categoria, Long> toCategoriaReference(Long categoriaId) {
+    private AggregateReference<Categoria, Integer> toCategoriaReference(Integer categoriaId) {
         return categoriaId == null ? null : AggregateReference.to(categoriaId);
     }
 
-    private void validarCategoria(AggregateReference<Categoria, Long> categoriaRef) {
+    private void validarCategoria(AggregateReference<Categoria, Integer> categoriaRef) {
         if (categoriaRef == null || categoriaRef.getId() == null || !categoriaRepository.existsById(categoriaRef.getId())) {
             throw new RecursoNaoEncontradoException("Categoria informada para o produto não existe.");
         }
