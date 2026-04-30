@@ -29,7 +29,7 @@ public class CategoriaService {
 
     public Categoria atualizar(Long id, Categoria categoriaAtualizada) {
         buscarPorId(id);
-        Categoria categoria = new Categoria(id, categoriaAtualizada.nome(), categoriaAtualizada.descricao());
+        Categoria categoria = new Categoria(id, categoriaAtualizada.getNome(), categoriaAtualizada.getDescricao());
         return categoriaRepository.save(categoria);
     }
 

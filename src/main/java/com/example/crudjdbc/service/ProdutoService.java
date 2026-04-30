@@ -1,6 +1,8 @@
 package com.example.crudjdbc.service;
 
 import com.example.crudjdbc.exception.RecursoNaoEncontradoException;
+import com.example.crudjdbc.controller.dto.ProdutoCategoriaResponse;
+import com.example.crudjdbc.controller.dto.ProdutoResponse;
 import com.example.crudjdbc.model.Categoria;
 import com.example.crudjdbc.model.Produto;
 import com.example.crudjdbc.controller.dto.ProdutoRequest;
@@ -8,6 +10,8 @@ import com.example.crudjdbc.repository.CategoriaRepository;
 import com.example.crudjdbc.repository.ProdutoRepository;
 import org.springframework.data.jdbc.core.mapping.AggregateReference;
 import org.springframework.stereotype.Service;
+
+import java.util.stream.StreamSupport;
 
 @Service
 public class ProdutoService {
@@ -35,8 +39,15 @@ public class ProdutoService {
         return produtoRepository.save(produto);
     }
 
-    public Iterable<Produto> listarTodos() {
-        return produtoRepository.findAll();
+    public Iterable<ProdutoResponse> listarTodos() {
+        return StreamSupport.stream(produtoRepository.findAll().spliterator(), false)
+                .map(ProdutoResponse::fromEntity)
+                .toList();
+    }
+
+
+    public Iterable<ProdutoCategoriaResponse> listarProdutosComCategoria() {
+        return produtoRepository.listarProdutosComCategoria();
     }
 
     public Produto buscarPorId(Long id) {

@@ -1,7 +1,9 @@
 package com.example.crudjdbc.controller;
 
 import com.example.crudjdbc.model.Produto;
+import com.example.crudjdbc.controller.dto.ProdutoCategoriaResponse;
 import com.example.crudjdbc.controller.dto.ProdutoRequest;
+import com.example.crudjdbc.controller.dto.ProdutoResponse;
 import com.example.crudjdbc.service.ProdutoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -23,8 +25,14 @@ public class ProdutoController {
     }
 
     @GetMapping
-    public Iterable<Produto> listarTodos() {
+    public Iterable<ProdutoResponse> listarTodos() {
         return produtoService.listarTodos();
+    }
+
+
+    @GetMapping("/detalhado")
+    public Iterable<ProdutoCategoriaResponse> listarProdutosComCategoria() {
+        return produtoService.listarProdutosComCategoria();
     }
 
     @GetMapping("/{id}")
